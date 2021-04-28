@@ -49,7 +49,7 @@
         <TextBox x:Name="textBoxLastName" Grid.Column="1" Grid.Row="1" Text="{Binding LastName}" />
         <Label Content="_Age" Grid.Row="2" Target="{x:Reference textBoxAge}" />
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-            <TextBox x:Name="textBoxAge" Width="30" Text="{Binding age, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox x:Name="textBoxAge" Width="30" Text="{Binding sssAge, UpdateSourceTrigger=PropertyChanged}" />
             <Slider Width="100" Margin="0 7 0 0" Maximum="130" Value="{Binding Age}"/>
         </StackPanel>
         <Expander Header="Address" IsExpanded="True" Grid.Row="3" Grid.ColumnSpan="2"  >
