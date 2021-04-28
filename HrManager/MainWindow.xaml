@@ -25,7 +25,19 @@
                 <ColumnDefinition Width="631*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Margin="5" ItemsSource="{Binding People}" SelectedItem="{Binding CurrentPerson}" />
+            <ListBox Margin="5" ItemsSource="{Binding People}" SelectedItem="{Binding CurrentPerson}" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="Black" BorderThickness="1" CornerRadius="4" 
+                        Width="20" Margin="5">
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Age}" />
+                            </Border>
+                            <TextBlock Margin="5" ><Run Text="{Binding FirstName}" /><Run Text=" "/><Run /><Run Text=" "/><Run Text="{Binding LastName}" FontWeight="Bold" /></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <GridSplitter HorizontalAlignment="Center" Grid.Column="1" Width="10" >
                 <GridSplitter.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
