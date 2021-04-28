@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HrManager.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace HrManager
 {
@@ -20,9 +8,14 @@ namespace HrManager
   /// </summary>
   public partial class MainWindow : Window
   {
+    /// Bonne pratique de mettre les ViewModel en donnée membre 
+    /// pour pouvoir y accéder dans toutes les callbacks
+    private MainViewModel viewModel;
     public MainWindow()
     {
       InitializeComponent();
+      viewModel = new MainViewModel();
+      DataContext = viewModel;
     }
   }
 }

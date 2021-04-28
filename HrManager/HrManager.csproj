@@ -59,6 +59,7 @@
       <DependentUpon>UserControlPerson.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BindableBase.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Person.cs" />
     <Compile Include="ViewModel\Commands\RelayCommand.cs" />
     <Compile Include="WindowAddEmployee.xaml.cs">

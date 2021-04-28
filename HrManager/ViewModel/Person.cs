@@ -40,6 +40,12 @@ namespace HrManager.ViewModel
         SetProperty(ref lastName, value);
       }
     }
+    // Pour le fun, pour le débogagen, pas le mieux, 
+    // on préferera un ItemTemplate
+    public override string ToString()
+    {
+      return $"{FirstName,-15} {LastName,-15} {Age,4}";
+    }
 
     //// le compilo génère un champ : int age
     ////public int Age { get; set; }
