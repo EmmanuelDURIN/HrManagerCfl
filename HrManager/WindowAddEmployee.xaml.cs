@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using HrManager.ViewModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace HrManager
 {
@@ -19,9 +8,34 @@ namespace HrManager
   /// </summary>
   public partial class WindowAddEmployee : Window
   {
+    // L apersonne est exposée sous forme de propriété
+    // Elle peut ainsi être récupérée par l'appelant de la boîte de dialogue
+    // après le clic sur Ok
+    public Person Person { get; set; }
+
     public WindowAddEmployee()
     {
       InitializeComponent();
+      Person = new Person
+      {
+        Age = 10,
+        FirstName = "Emmanuel",
+        LastName = "Durin",
+      };
+      // Mettre la personne dans le DataContext pour qu'elle soit liée aux contrôles
+      DataContext = Person;
+    }
+
+    private void ButtonOkClick(object sender, RoutedEventArgs e)
+    {
+      // ferme la boîte de dialogue
+      DialogResult = true;
+    }
+
+    private void Toto(object sender, RoutedEventArgs e)
+    {
+      // ferme la boîte de dialogue
+      DialogResult = false;
     }
   }
 }

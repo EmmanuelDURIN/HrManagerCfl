@@ -1,19 +1,23 @@
-﻿<UserControl x:Class="HrManager.UserControlPerson"
+﻿<UserControl
+             x:Class="HrManager.UserControlPerson"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HrManager"
+             xmlns:viewmodel="clr-namespace:HrManager.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" 
+             d:DataContext="{d:DesignInstance {x:Type viewmodel:Person}}"
+    >
     <UserControl.Resources>
         <!--un style qui cible toutes les TextBox-->
-        <Style TargetType="TextBox">
+        <Style TargetType="{x:Type TextBox}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="20 3"/>
             <Setter Property="Width" Value="200"/>
         </Style>
-        <Style TargetType="Label">
+        <Style TargetType="{x:Type Label}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="20 3"/>
             <Setter Property="Width" Value="200"/>
@@ -40,13 +44,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Content="_First Name" Target="{x:Reference textBoxFirstName}"/>
-        <TextBox Name="textBoxFirstName"  Grid.Column="1"  />
+        <TextBox x:Name="textBoxFirstName"  Grid.Column="1" Text="{Binding FirstName}"  />
         <Label Content="_Last Name" Target="{x:Reference textBoxLastName}" Grid.Row="1" />
-        <TextBox Name="textBoxLastName" Grid.Column="1" Grid.Row="1"  />
+        <TextBox x:Name="textBoxLastName" Grid.Column="1" Grid.Row="1" Text="{Binding LastName}" />
         <Label Content="_Age" Grid.Row="2" Target="{x:Reference textBoxAge}" />
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2">
-            <TextBox Name="textBoxAge" Width="30"  />
-            <Slider Width="100" Margin="0 7 0 0" Maximum="130"></Slider>
+            <TextBox x:Name="textBoxAge" Width="30" Text="{Binding age, UpdateSourceTrigger=PropertyChanged}" />
+            <Slider Width="100" Margin="0 7 0 0" Maximum="130" Value="{Binding Age}"/>
         </StackPanel>
         <Expander Header="Address" IsExpanded="True" Grid.Row="3" Grid.ColumnSpan="2"  >
             <Grid>
@@ -60,11 +64,11 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Content="_Street" Target="{x:Reference textBoxStreet}"/>
-                <TextBox Name="textBoxStreet" Grid.Column="1"  />
+                <TextBox x:Name="textBoxStreet" Grid.Column="1"  />
                 <Label Content="_City" Grid.Row="1" Target="{x:Reference textBoxCity}"/>
-                <TextBox Name="textBoxCity" Grid.Column="1" Grid.Row="1"  />
+                <TextBox x:Name="textBoxCity" Grid.Column="1" Grid.Row="1"  />
                 <Label Content="_ZipCode" Grid.Row="2" Target="{x:Reference comboZipCode}"/>
-                <ComboBox  Name="comboZipCode" Grid.Column="1" Grid.Row="2" Width="200" Margin="20 0 0 0" HorizontalAlignment="Left"  />
+                <ComboBox  x:Name="comboZipCode" Grid.Column="1" Grid.Row="2" Width="200" Margin="20 0 0 0" HorizontalAlignment="Left"  />
             </Grid>
         </Expander>
     </Grid>
