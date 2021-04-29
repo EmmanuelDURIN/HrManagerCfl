@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\AgeToBrushConverter.cs" />
     <Compile Include="UserControlPerson.xaml.cs">
       <DependentUpon>UserControlPerson.xaml</DependentUpon>
     </Compile>

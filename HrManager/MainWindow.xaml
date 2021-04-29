@@ -6,8 +6,12 @@
         xmlns:local="clr-namespace:HrManager"
         xmlns:ViewModel="clr-namespace:HrManager.ViewModel" x:Class="HrManager.MainWindow"
         mc:Ignorable="d"
+        xmlns:converters="clr-namespace:HrManager.Converters"
         Title="MainWindow" Height="450" Width="800" 
     d:DataContext="{d:DesignInstance {x:Type ViewModel:MainViewModel}}">
+    <Window.Resources>
+        <converters:AgeToBrushConverter x:Key="ageToBrushConverter" />
+    </Window.Resources>
     <Grid x:Name="mainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="203*"/>
@@ -38,7 +42,9 @@
                         <StackPanel Orientation="Horizontal">
                             <Border BorderBrush="Black" BorderThickness="1" CornerRadius="4" 
                         Width="20" Margin="5">
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Age}" />
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Age}" 
+                                           Foreground="{Binding Age,Converter={StaticResource ageToBrushConverter}}"
+                                           />
                             </Border>
                             <TextBlock Margin="5" ><Run Text="{Binding FirstName}" /><Run Text=" "/><Run /><Run Text=" "/><Run Text="{Binding LastName}" FontWeight="Bold" /></TextBlock>
                         </StackPanel>

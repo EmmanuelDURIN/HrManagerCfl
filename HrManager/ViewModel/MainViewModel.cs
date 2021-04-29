@@ -108,7 +108,7 @@ namespace HrManager.ViewModel
         await Task.Delay(5000, cancellationToken);
         //string importantData = await ReadData(cancellationToken);
         // Pour éxécuter du code sur un autre thread : calcul,...
-        //Task.Run();
+        //Task.Run(...);
 
         var query = Enumerable.Range(1, 10)
                               .Select(i => new Person
