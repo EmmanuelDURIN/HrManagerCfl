@@ -12,7 +12,8 @@
              d:DataContext="{d:DesignInstance {x:Type viewmodel:Person}}"
     >
     <UserControl.Resources>
-        <converters:AgeToBrushConverter x:Key="ageToBrushConverter" />
+
+
         <!--un style qui cible toutes les TextBox-->
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="HorizontalAlignment" Value="Left"/>
