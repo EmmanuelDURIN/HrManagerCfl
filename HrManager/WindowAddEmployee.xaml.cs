@@ -8,7 +8,7 @@ namespace HrManager
   /// </summary>
   public partial class WindowAddEmployee : Window
   {
-    // L apersonne est exposée sous forme de propriété
+    // La personne est exposée sous forme de propriété
     // Elle peut ainsi être récupérée par l'appelant de la boîte de dialogue
     // après le clic sur Ok
     public Person Person { get; set; }
@@ -32,7 +32,7 @@ namespace HrManager
       DialogResult = true;
     }
 
-    private void Toto(object sender, RoutedEventArgs e)
+    private void ButtonCancelClick(object sender, RoutedEventArgs e)
     {
       // ferme la boîte de dialogue
       DialogResult = false;

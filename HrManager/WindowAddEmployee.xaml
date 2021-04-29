@@ -14,7 +14,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button Content="Ok" Grid.Column="1" Width="80" Margin="20 5" IsDefault="True" Click="ButtonOkClick"/>
-            <Button Content="Cancel" Grid.Column="2" Width="80" Margin="20 5" IsCancel="True" Click="Toto"/>
+            <Button Content="Cancel" Grid.Column="2" Width="80" Margin="20 5" IsCancel="True" Click="ButtonCancelClick"/>
         </Grid>
         <local:UserControlPerson />
     </DockPanel>

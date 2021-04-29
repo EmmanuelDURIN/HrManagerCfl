@@ -21,9 +21,10 @@
         <Grid x:Name="toolBarGrid" Grid.ColumnSpan="2" >
             <ProgressBar 
                 IsIndeterminate="{Binding IsRefreshing}"
-                HorizontalAlignment="Left" Height="10" Margin="229,8,0,0" VerticalAlignment="Top" Width="100"/>
-            <Button Content="_Refresh" HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RefreshCmd}"/>
-            <Button Content="_Cancel" HorizontalAlignment="Left" Margin="138,4,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCmd}"/>
+                HorizontalAlignment="Left" Height="10" Margin="359,10,0,0" VerticalAlignment="Top" Width="100"/>
+            <Button Content="_Refresh" HorizontalAlignment="Left" Margin="114,4,0,0" VerticalAlignment="Top" Width="87" Command="{Binding RefreshCmd}"/>
+            <Button Content="_Cancel" HorizontalAlignment="Left" Margin="214,4,0,0" VerticalAlignment="Top" Width="86" Command="{Binding CancelCmd}"/>
+            <Button Content="_Hire Employee" HorizontalAlignment="Left" Margin="19,3,0,0" VerticalAlignment="Top" Width="84" Click="ButtonHireClick"/>
         </Grid>
         <Grid x:Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="2"
               IsEnabled="{Binding IsNotRefreshing}" >

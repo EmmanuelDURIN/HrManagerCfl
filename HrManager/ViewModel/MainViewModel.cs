@@ -40,6 +40,13 @@ namespace HrManager.ViewModel
         }
       }
     }
+
+    public void HireEmployee(Person person)
+    {
+      people.Add(person);
+    }
+
+
     // Propriété liée, calculée, dérivée. 
     // Pas de donnée en propre, pas de champ
     public bool IsNotRefreshing
