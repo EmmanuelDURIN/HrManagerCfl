@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -104,7 +106,7 @@ namespace HrManager.ViewModel
         // En .Net, on a de nombreuses fonctions asynchrones qui acceptent un CancellationToken -
         // les tâches peuvent ainsi être arrêtées
         await Task.Delay(5000, cancellationToken);
-
+        //string importantData = await ReadData(cancellationToken);
         // Pour éxécuter du code sur un autre thread : calcul,...
         //Task.Run();
 
@@ -132,6 +134,29 @@ namespace HrManager.ViewModel
         // même en cas d'exception pas attrapée
         IsRefreshing = false;
       }
+    }
+    // Les fonctions async ne peuvent avoir que 3 types de retour
+    // 1) Task<T> si on a qq chose à retourner (équivalent à retourner T) - bien
+    // 2) Task si on a rien à retourner (équivalent à void) - bien
+    // 3) void -  moins bien car exceptions mal propagées - mais bien si on implémente une callback appelée par WPF
+    // car Wpf se fiche des exceptions
+    private async Task<string> ReadData(CancellationToken cancellationToken)
+    {
+      // using nous assure que le fichier est fermé sur l'accolade fermante
+      // quel que soit la fin ( normale, return,exception)
+      using (Stream sr = new FileStream("data.txt", FileMode.Open))
+      {
+        byte[] buffer = new byte[1024];
+        // on peut passer le cancellationToken à la fonction
+        Task<int> task = sr.ReadAsync(buffer, 0, 1024, cancellationToken);
+        // await
+        // 1) nous fait attendre la fin de la lecture
+        // 2) déballe l'entier de la tâche
+        // 3) n'est utilisable que dans les fonctions async
+        // 4) libère le thread graphique
+        int nbRead = await task;
+        return System.Text.Encoding.Default.GetString(buffer);
+      } // sr.Close();
     }
   }
 }
