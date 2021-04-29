@@ -22,7 +22,7 @@
                 IsIndeterminate="{Binding IsRefreshing}"
                 HorizontalAlignment="Left" Height="10" Margin="229,8,0,0" VerticalAlignment="Top" Width="100"/>
             <Button Content="_Refresh" HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RefreshCmd}"/>
-            <Button Content="_Cancel" HorizontalAlignment="Left" Margin="138,4,0,0" VerticalAlignment="Top" Width="75"/>
+            <Button Content="_Cancel" HorizontalAlignment="Left" Margin="138,4,0,0" VerticalAlignment="Top" Width="75" Command="{Binding CancelCmd}"/>
         </Grid>
         <Grid x:Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="2"
               IsEnabled="{Binding IsNotRefreshing}" >

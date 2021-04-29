@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,8 +11,10 @@ namespace HrManager.ViewModel
   {
     private ObservableCollection<Person> people = new ObservableCollection<Person>();
     private Person currentPerson;
-
     private bool isRefreshing;
+    // le CancellationTokenSource implémente la partie micro(source) du  pattern de l'observateur(source/écouteur)
+    // 
+    private CancellationTokenSource cancellationTokenSource;
 
     public bool IsRefreshing
     {
@@ -24,8 +25,9 @@ namespace HrManager.ViewModel
         bool hasChanged = SetProperty(ref isRefreshing, value);
         if (hasChanged)
         {
-          // 2) On émet un évt pour dire au bouton de se mettre à jour
+          // 2) On émet un évt pour dire aux boutons de se mettre à jour
           RefreshCmd.FireExecuteChanged();
+          CancelCmd.FireExecuteChanged();
           // 3) On émet un évt pour dire à la Grid de se mettre à jour
           // Notifier tous les composants bindés sur IsNotRefreshing qu'il faut se mettre à jour
           //OnPropertyChanged("IsNotRefreshing");
@@ -43,6 +45,7 @@ namespace HrManager.ViewModel
       get { return !isRefreshing; }
     }
     public RelayCommand RefreshCmd { get; set; }
+    public RelayCommand CancelCmd { get; set; }
     public ObservableCollection<Person> People
     {
       get { return people; }
@@ -64,43 +67,71 @@ namespace HrManager.ViewModel
     {
       // on donne Refresh et CanRefresh en callback sur le bouton
       RefreshCmd = new RelayCommand(Refresh, CanRefresh);
-
+      CancelCmd = new RelayCommand(Cancel, CanCancel);
       // Refresh au démarrage de l'application
       //Refresh(null);
+    }
+    private void Cancel(object obj)
+    {
+      if (cancellationTokenSource != null)
+        // on émet la demande d'annulation dans le micro
+        cancellationTokenSource.Cancel();
+    }
+    private bool CanCancel(object obj)
+    {
+      return isRefreshing;
     }
     private bool CanRefresh(object obj)
     {
       return !IsRefreshing;
     }
-
     private async void Refresh(object o)
     {
+      cancellationTokenSource = new CancellationTokenSource();
+      // le CancellationToken est l'écouteur du pattern Observateur
+      CancellationToken cancellationToken = cancellationTokenSource.Token;
       // !!! utiliser la propriété pour émettre l'évenement
       IsRefreshing = true;
       people.Clear();
 
-      // Pas bien bloque le thread graphique :
-      //Thread.Sleep(5000);
-
-      //Bien : car bloque l'exécution des instructions suivantes
-      // libère le thread graphique pour qu'il puisse exécuter d'autres callback
-      await Task.Delay(5000);
-
-      // Pour éxécuter du code sur un autre thread : calcul,...
-      //Task.Run();
-
-      var query = Enumerable.Range(1, 10)
-                            .Select(i => new Person
-                            {
-                              Age = 10 + i,
-                              FirstName = "FirstName" + (i + 1),
-                              LastName = "LastName" + (i + 1),
-                            });
-      foreach (var person in query)
+      try
       {
-        people.Add(person);
+        // Pas bien bloque le thread graphique :
+        //Thread.Sleep(5000);
+
+        //Bien : car bloque l'exécution des instructions suivantes
+        // libère le thread graphique pour qu'il puisse exécuter d'autres callback
+        // En .Net, on a de nombreuses fonctions asynchrones qui acceptent un CancellationToken -
+        // les tâches peuvent ainsi être arrêtées
+        await Task.Delay(5000, cancellationToken);
+
+        // Pour éxécuter du code sur un autre thread : calcul,...
+        //Task.Run();
+
+        var query = Enumerable.Range(1, 10)
+                              .Select(i => new Person
+                              {
+                                Age = 10 + i,
+                                FirstName = "FirstName" + (i + 1),
+                                LastName = "LastName" + (i + 1),
+                              });
+        foreach (var person in query)
+        {
+          people.Add(person);
+        }
       }
-      IsRefreshing = false;
+      catch (TaskCanceledException)
+      {
+        // Normal : l'utilisateur a appuyé sur Cancel
+        // Ne pas rémettre l'exception
+        //throw;
+      }
+      finally
+      {
+        // Pour être sur que IsRefreshing soit mis à false, 
+        // même en cas d'exception pas attrapée
+        IsRefreshing = false;
+      }
     }
   }
 }
