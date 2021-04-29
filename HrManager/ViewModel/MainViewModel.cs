@@ -20,11 +20,27 @@ namespace HrManager.ViewModel
       get { return isRefreshing; }
       set
       {
+        // 1) Emission évt que IsRefreshing a changé
         bool hasChanged = SetProperty(ref isRefreshing, value);
         if (hasChanged)
-          // On émet un évt pour dire au bouton de se mettre à jour
+        {
+          // 2) On émet un évt pour dire au bouton de se mettre à jour
           RefreshCmd.FireExecuteChanged();
+          // 3) On émet un évt pour dire à la Grid de se mettre à jour
+          // Notifier tous les composants bindés sur IsNotRefreshing qu'il faut se mettre à jour
+          //OnPropertyChanged("IsNotRefreshing");
+          // Mieux : car avec nameof, 
+          // a) le compilo vérifie
+          // b) les renommages sont effectifs
+          OnPropertyChanged(nameof(IsNotRefreshing));
+        }
       }
+    }
+    // Propriété liée, calculée, dérivée. 
+    // Pas de donnée en propre, pas de champ
+    public bool IsNotRefreshing
+    {
+      get { return !isRefreshing; }
     }
     public RelayCommand RefreshCmd { get; set; }
     public ObservableCollection<Person> People
@@ -46,11 +62,11 @@ namespace HrManager.ViewModel
 
     public MainViewModel()
     {
-       // on donne Refresh et CanRefresh en callback sur le bouton
-      RefreshCmd = new RelayCommand(Refresh, CanRefresh );
-      
+      // on donne Refresh et CanRefresh en callback sur le bouton
+      RefreshCmd = new RelayCommand(Refresh, CanRefresh);
+
       // Refresh au démarrage de l'application
-      Refresh(null);
+      //Refresh(null);
     }
     private bool CanRefresh(object obj)
     {
@@ -69,8 +85,8 @@ namespace HrManager.ViewModel
       //Bien : car bloque l'exécution des instructions suivantes
       // libère le thread graphique pour qu'il puisse exécuter d'autres callback
       await Task.Delay(5000);
-      
-      // Pour éxécuter du code sur un autre thread : calcul
+
+      // Pour éxécuter du code sur un autre thread : calcul,...
       //Task.Run();
 
       var query = Enumerable.Range(1, 10)

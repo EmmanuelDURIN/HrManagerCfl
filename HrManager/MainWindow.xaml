@@ -24,7 +24,8 @@
             <Button Content="_Refresh" HorizontalAlignment="Left" Margin="38,4,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RefreshCmd}"/>
             <Button Content="_Cancel" HorizontalAlignment="Left" Margin="138,4,0,0" VerticalAlignment="Top" Width="75"/>
         </Grid>
-        <Grid x:Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="2">
+        <Grid x:Name="contentGrid" Grid.Row="1" Grid.ColumnSpan="2"
+              IsEnabled="{Binding IsNotRefreshing}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="163*"/>
                 <ColumnDefinition Width="Auto"/>
