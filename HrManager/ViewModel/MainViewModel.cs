@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HrManager.BusinessLayer;
+using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -43,7 +44,12 @@ namespace HrManager.ViewModel
 
     public void HireEmployee(Person person)
     {
-      people.Add(person);
+      // Appel de la logique métier (qui écrit dans la DB)
+      if( EmployeeManager.Hire(person))
+      {
+        // Ajoute l'employé dans la  collection du ViewModel
+        people.Add(person);
+      }
     }
 
 
