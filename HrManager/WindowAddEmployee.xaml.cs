@@ -1,4 +1,5 @@
-﻿using HrManager.ViewModel;
+﻿using HrManager.ValidationRules;
+using HrManager.ViewModel;
 using System.Windows;
 
 namespace HrManager
@@ -28,8 +29,18 @@ namespace HrManager
 
     private void ButtonOkClick(object sender, RoutedEventArgs e)
     {
+      // Ici : empêcher la fermeture de la boîte de dialogue si PAS VALIDE
       // ferme la boîte de dialogue
-      DialogResult = true;
+      // Appel Correct et classique d'une méthoide statique
+      //if (ValidationHelper.IsValid(this))
+      // Comme IsValid est une méthode d'extension
+      // elle est appelable (aussi) de la manière suivante:
+      if (this.IsValid())
+      {
+        DialogResult = true;
+      }
+      //this.PlayUkulele();
+      ////ValidationHelper.PlayUkulele(this);
     }
 
     private void ButtonCancelClick(object sender, RoutedEventArgs e)

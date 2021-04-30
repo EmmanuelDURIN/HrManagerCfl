@@ -12,8 +12,6 @@
              d:DataContext="{d:DesignInstance {x:Type viewmodel:Person}}"
     >
     <UserControl.Resources>
-
-
         <!--un style qui cible toutes les TextBox-->
         <Style TargetType="{x:Type TextBox}">
             <Setter Property="HorizontalAlignment" Value="Left"/>

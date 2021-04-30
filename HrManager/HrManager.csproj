@@ -60,6 +60,7 @@
       <DependentUpon>UserControlPerson.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules\RequiredValidationRule.cs" />
+    <Compile Include="ValidationRules\ValidationHelper.cs" />
     <Compile Include="ViewModel\BindableBase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\Person.cs" />
