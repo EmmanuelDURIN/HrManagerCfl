@@ -51,8 +51,6 @@ namespace HrManager.ViewModel
         people.Add(person);
       }
     }
-
-
     // Propriété liée, calculée, dérivée. 
     // Pas de donnée en propre, pas de champ
     public bool IsNotRefreshing
@@ -118,19 +116,20 @@ namespace HrManager.ViewModel
         // libère le thread graphique pour qu'il puisse exécuter d'autres callback
         // En .Net, on a de nombreuses fonctions asynchrones qui acceptent un CancellationToken -
         // les tâches peuvent ainsi être arrêtées
-        await Task.Delay(5000, cancellationToken);
+        await Task.Delay(1000, cancellationToken);
         //string importantData = await ReadData(cancellationToken);
         // Pour éxécuter du code sur un autre thread : calcul,...
         //Task.Run(...);
 
-        var query = Enumerable.Range(1, 10)
-                              .Select(i => new Person
-                              {
-                                Age = 10 + i,
-                                FirstName = "FirstName" + (i + 1),
-                                LastName = "LastName" + (i + 1),
-                              });
-        foreach (var person in query)
+        //var query = Enumerable.Range(1, 10)
+        //                      .Select(i => new Person
+        //                      {
+        //                        Age = 10 + i,
+        //                        FirstName = "FirstName" + (i + 1),
+        //                        LastName = "LastName" + (i + 1),
+        //                      });
+        var employees = EmployeeManager.GetAll();
+        foreach (var person in employees)
         {
           people.Add(person);
         }

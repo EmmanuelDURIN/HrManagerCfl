@@ -1,6 +1,7 @@
 ﻿using HrManager.DataAccessLayer;
 using HrManager.ViewModel;
 using System;
+using System.Collections.Generic;
 
 namespace HrManager.BusinessLayer
 {
@@ -20,6 +21,11 @@ namespace HrManager.BusinessLayer
     private static bool IsTopGun(Person person)
     {
       return (person.FirstName.Length + person.LastName.Length > 12);
+    }
+
+    internal static List<Person> GetAll()
+    {
+      return EmployeeRepository.GetAll();
     }
   }
 }
